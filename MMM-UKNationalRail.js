@@ -101,7 +101,7 @@ Module.register("MMM-UKNationalRail",{
       if(trains.status == "LATE") {
           statusCell.className = "delay red";
           statusCell.innerHTML = trains.delayedBy + " min";
-      } else if (trains.status == "EARLY"){
+      } else if(trains.status == "EARLY"){
           statusCell.className = "delay blue";
           statusCell.innerHTML = trains.delayedBy + " min";
       } else {
