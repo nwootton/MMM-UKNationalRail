@@ -17,7 +17,7 @@ Module.register("MMM-UKNationalRail",{
 		fade: true,
 		fadePoint: 0.25, // Start on 1/4th of the list.
     initialLoadDelay: 0, // start delay seconds.
-
+		maxResults: 5,
     apiBase: 'https://transportapi.com/v3/uk/train/station/',
 		stationCode: 'BRS',
 		app_key: '2e29824b9405cee58a3b4028e19524e8',
@@ -193,7 +193,15 @@ Module.register("MMM-UKNationalRail",{
 	processTrains: function(data) {
 
 		this.trains = [];
-		for (var i = 0, count = data.departures.all.length; i < count; i++) {
+		var counter = 0;
+		if(this.config.maxResults > data.departures.all.length) {
+				counter = data.departures.all.length;
+		}
+		else {
+				counter = this.config.maxResults;
+		}
+
+		for (var i = 0; i < counter; i++) {
 
 			var trains = data.departures.all[i];
 			this.trains.push({
