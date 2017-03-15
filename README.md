@@ -14,9 +14,11 @@ modules: [
 		position: 'bottom_left',
 		header: 'My Station Name',
 		config: {
-      stationCode: 'WAT', // Can be CRS or TIPLOC code for station
+      stationCode: 'WAT', // CRS code for station
 			app_id: '123445678', // TransportAPI App ID
 			app_key: 'qwertyuiop[asdfghjkl]', // TransportAPI App Key
+      maxResults: 5,  //Optional - Maximum results to display.
+      showOrigin: false   //Optional - Show the origin of the train in the table
 		}
 	},
 ]

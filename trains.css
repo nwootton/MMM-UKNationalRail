@@ -1,6 +1,5 @@
 .trains {
   font-size: 75%;
-  line-height: 65px;
   display: inline-block;
   -moz-transform: translate(0, -3px); /* IE 9 */
   -ms-transform: translate(0, -3px); /* IE 9 */
@@ -10,16 +9,4 @@
 
 .trains table {
     width: 400px;
-}
-
-.trains .red {
-    color: #FF0000
-}
-
-.trains .green {
-    color: #00FF00
-}
-
-.trains .blue {
-    color: #0000FF
 }

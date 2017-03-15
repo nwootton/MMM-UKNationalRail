@@ -17,12 +17,13 @@ Module.register("MMM-UKNationalRail",{
 		fade: true,
 		fadePoint: 0.25, // Start on 1/4th of the list.
     initialLoadDelay: 0, // start delay seconds.
-		maxResults: 5,
+		maxResults: 5, //Maximum number of results to display
     apiBase: 'https://transportapi.com/v3/uk/train/station/',
-		stationCode: 'BRS',
-		app_key: '2e29824b9405cee58a3b4028e19524e8',
-    app_id: 'b922ce02',
+		stationCode: '', // CRS code for station
+		app_key: '', // TransportAPI App Key
+    app_id: '', // TransportAPI App ID
 		apiEnd: '&darwin=true&train_status=passenger',
+		showOrigin: false,
 
 		titleReplace: {
 			"Time Table ": ""
@@ -97,28 +98,28 @@ Module.register("MMM-UKNationalRail",{
 			row.appendChild(depCell);
 
       var statusCell = document.createElement("td");
+			 statusCell.className = "trains";
 
       if(trains.status == "LATE") {
-          statusCell.className = "delay red";
-          statusCell.innerHTML = trains.delayedBy + " min";
+          statusCell.innerHTML = trains.delayedBy + " min ";
       } else if(trains.status == "EARLY"){
-          statusCell.className = "delay blue";
-          statusCell.innerHTML = trains.delayedBy + " min";
+          statusCell.innerHTML = trains.delayedBy + " min ";
       } else {
-          statusCell.className = "delay green";
           statusCell.innerHTML = "On time";
 			}
 			row.appendChild(statusCell);
 
-			var trainNameCell = document.createElement("td");
-			trainNameCell.innerHTML = trains.name;
-			trainNameCell.className = "align-right bright";
-			row.appendChild(trainNameCell);
+			var trainDestCell = document.createElement("td");
+			trainDestCell.innerHTML = trains.destination;
+			trainDestCell.className = "align-right bright";
+			row.appendChild(trainDestCell);
 
-			var trainToCell = document.createElement("td");
-			trainToCell.innerHTML = trains.to;
-			trainToCell.className = "align-right trainto";
-			row.appendChild(trainToCell);
+			if (showOrigin) {
+				var trainOriginCell = document.createElement("td");
+				trainOriginCell.innerHTML = trains.origin;
+				trainOriginCell.className = "align-right trainto";
+				row.appendChild(trainOriginCell);
+			}
 
 			if (this.config.fade && this.config.fadePoint < 1) {
 				if (this.config.fadePoint < 0) {
@@ -208,8 +209,8 @@ Module.register("MMM-UKNationalRail",{
 
 				departureTimestamp: trains.aimed_departure_time,
 				status: trains.status,
-				name: trains.origin_name,
-				to: trains.destination_name,
+				origin: trains.origin_name,
+				destination: trains.destination_name,
 				delayedBy: trains.best_arrival_estimate_mins
 
 			});
