@@ -1,5 +1,5 @@
 # MMM-UKNationalRail
-Additional Module for MagicMirror²  https://github.com/MichMich/MagicMirror/tree/v2-beta
+Additional Module for MagicMirror²  https://github.com/MichMich/MagicMirror
 
 # Module: UKNationalRail
 This module displays LIVE train arrivals & departures from a specified station.
