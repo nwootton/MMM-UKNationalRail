@@ -121,12 +121,30 @@ Module.register("MMM-UKNationalRail",{
       if(trains.status == "LATE") {
           statusCell.innerHTML = " Late ";
 					statusCell.className = "late";
-      } else if(trains.status == "EARLY"){
+      }
+			else if(trains.status == "EARLY") {
           statusCell.innerHTML = " Early ";
 					statusCell.className = "early";
-      } else {
+			}
+			else if(trains.status == "CANCELLED") {
+          statusCell.innerHTML = " Cancelled ";
+					statusCell.className = "late";
+			}
+			else if(trains.status == "ARRIVED") {
+          statusCell.innerHTML = " Arrived ";
+					statusCell.className = "early";
+			}
+			else if(trains.status == "REINSTATEMENT" || trains.status == "STARTS HERE") {
+          statusCell.innerHTML = trains.status;
+					statusCell.className = "early";
+			}
+			else if(trains.status == "NO REPORT") {
+          statusCell.innerHTML = "";
+					statusCell.className = "nonews";
+			}
+      else {
           statusCell.innerHTML = " On time ";
-					statusCell.className = "normal";
+					statusCell.className = "nonews";
 			}
 			row.appendChild(statusCell);
 
