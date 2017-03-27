@@ -9,5 +9,13 @@
 }
 
 .trains table {
-    width: 400px;
+    width: 450px;
+}
+
+.late {
+  color: #ff0000;
+}
+
+.early {
+  color: #55a6e0;
 }

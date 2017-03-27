@@ -106,27 +106,29 @@ Module.register("MMM-UKNationalRail",{
 			var row = document.createElement("tr");
 			table.appendChild(row);
 
-			var depCell = document.createElement("td");
-			depCell.className = "departuretime";
-			depCell.innerHTML = trains.departureTimestamp;
-			row.appendChild(depCell);
-
-      var statusCell = document.createElement("td");
-			 statusCell.className = "trains";
-
-      if(trains.status == "LATE") {
-          statusCell.innerHTML = trains.delayedBy + " min ";
-      } else if(trains.status == "EARLY"){
-          statusCell.innerHTML = trains.delayedBy + " min ";
-      } else {
-          statusCell.innerHTML = "On time";
-			}
-			row.appendChild(statusCell);
-
 			var trainDestCell = document.createElement("td");
 			trainDestCell.innerHTML = trains.destination;
 			trainDestCell.className = "align-right bright";
 			row.appendChild(trainDestCell);
+
+			var depCell = document.createElement("td");
+			depCell.className = "departuretime";
+			depCell.innerHTML = trains.plannedDeparture + " (" + trains.actualDeparture + ")";
+			row.appendChild(depCell);
+
+      var statusCell = document.createElement("td");
+
+      if(trains.status == "LATE") {
+          statusCell.innerHTML = " Late ";
+					statusCell.className = "late";
+      } else if(trains.status == "EARLY"){
+          statusCell.innerHTML = " Early ";
+					statusCell.className = "early";
+      } else {
+          statusCell.innerHTML = " On time ";
+					statusCell.className = "normal";
+			}
+			row.appendChild(statusCell);
 
 			if (this.config.showOrigin) {
 				var trainOriginCell = document.createElement("td");
@@ -263,12 +265,12 @@ Module.register("MMM-UKNationalRail",{
 			var trains = data.departures.all[i];
 			this.trains.push({
 
-				departureTimestamp: trains.aimed_departure_time,
+				plannedDeparture: trains.aimed_departure_time,
+				actualDeparture: trains.expected_departure_time,
 				status: trains.status,
 				origin: trains.origin_name,
 				destination: trains.destination_name,
-				delayedBy: trains.best_arrival_estimate_mins
-
+				leavesIn: trains.best_arrival_estimate_mins
 			});
 		}
 
