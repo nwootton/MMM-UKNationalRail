@@ -23,3 +23,11 @@
 .nonews {
   color: #ffffff
 }
+
+.departuretime {
+  text-align: left;
+}
+
+.trainto {
+  text-align: left;
+}

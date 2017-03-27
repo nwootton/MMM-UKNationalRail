@@ -108,7 +108,7 @@ Module.register("MMM-UKNationalRail",{
 
 			var trainDestCell = document.createElement("td");
 			trainDestCell.innerHTML = trains.destination;
-			trainDestCell.className = "align-right bright";
+			trainDestCell.className = "align-left bright";
 			row.appendChild(trainDestCell);
 
 			var depCell = document.createElement("td");
