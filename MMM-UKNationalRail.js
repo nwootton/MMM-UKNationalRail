@@ -38,10 +38,7 @@ Module.register("MMM-UKNationalRail",{
 
 		maxResults: 5, //Maximum number of results to display
 		showOrigin: false,
-
-		titleReplace: {
-			"Time Table ": ""
-		}
+		showPlatform: true
 	},
 
 	// Define required scripts.
@@ -106,6 +103,21 @@ Module.register("MMM-UKNationalRail",{
 			var row = document.createElement("tr");
 			table.appendChild(row);
 
+			if (this.config.showPlatform) {
+
+				if (trains.platform) {
+					platform = trains.platform;
+				}
+				else {
+					platform = '-';
+				}
+
+				var trainPlatformCell = document.createElement("td");
+				trainPlatformCell.innerHTML = platform;
+				trainPlatformCell.className = "bright platform";
+				row.appendChild(trainPlatformCell);
+			}
+
 			var trainDestCell = document.createElement("td");
 			trainDestCell.innerHTML = trains.destination;
 			trainDestCell.className = "align-left bright";
@@ -120,11 +132,11 @@ Module.register("MMM-UKNationalRail",{
 
       if(trains.status == "LATE") {
           statusCell.innerHTML = " Late ";
-					statusCell.className = "late";
+					statusCell.className = "bright late";
       }
 			else if(trains.status == "EARLY") {
           statusCell.innerHTML = " Early ";
-					statusCell.className = "early";
+					statusCell.className = "bright early";
 			}
 			else if(trains.status == "CANCELLED") {
           statusCell.innerHTML = " Cancelled ";
@@ -288,7 +300,8 @@ Module.register("MMM-UKNationalRail",{
 				status: trains.status,
 				origin: trains.origin_name,
 				destination: trains.destination_name,
-				leavesIn: trains.best_arrival_estimate_mins
+				leavesIn: trains.best_arrival_estimate_mins,
+				platform: trains.platform
 			});
 		}
 

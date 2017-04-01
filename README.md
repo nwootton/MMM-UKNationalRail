@@ -53,6 +53,7 @@ The following is taken from the TransportAPI documentation [here](https://develo
 |---|---|
 |`maxResults `|Integer. Limits the number of rows returned by the module. This will be the highest number between this value or the number of rows returned if it is less.<br><br>**Default:** 5|
 |`showOrigin `|Boolean. This shows the origin of the train in the results grid.<br><br>**Default:** false|
+|`showPlatform `|Boolean. This shows the platform number of the train in the results grid. If no platform is specified it will show '-'<br><br>**Default:** true|
 
 To find the CRS Station codes for the 'stations of interest' go here: http://www.railwaycodes.org.uk/crs/CRS0.shtm
 

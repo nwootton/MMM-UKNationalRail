@@ -31,3 +31,8 @@
 .trainto {
   text-align: left;
 }
+
+.platform {
+  color:Green;
+  padding:5px;
+}
