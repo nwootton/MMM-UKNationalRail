@@ -38,7 +38,8 @@ Module.register("MMM-UKNationalRail",{
 
 		maxResults: 5, //Maximum number of results to display
 		showOrigin: false,
-		showPlatform: true
+		showPlatform: true,
+		header:	'Departures'
 	},
 
 	// Define required scripts.
@@ -49,6 +50,11 @@ Module.register("MMM-UKNationalRail",{
 	// Define required scripts.
 	getScripts: function() {
 		return ["moment.js"];
+	},
+
+	//Define header for module.
+	getHeader: function() {
+		return this.config.header;
 	},
 
 	// Define start sequence.
@@ -281,6 +287,7 @@ Module.register("MMM-UKNationalRail",{
 	 */
 	processTrains: function(data) {
 
+		this.config.header = data.station_name;
 		this.trains = [];
 		var counter = 0;
 		if(this.config.maxResults > data.departures.all.length) {
