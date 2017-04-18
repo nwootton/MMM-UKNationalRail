@@ -4,6 +4,7 @@ Additional Module for MagicMirror²  https://github.com/MichMich/MagicMirror
 # Module: UKNationalRail
 This module displays LIVE train arrivals & departures from a specified station.
 
+![](./images/Current_version.png)
 ## Using the module
 
 To use this module, add it to the modules array in the `config/config.js` file:
