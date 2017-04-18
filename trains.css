@@ -8,10 +8,48 @@
   transform: translate(0, -3px);
 }
 
-.trains table {
-    width: 450px;
+/* Destination */
+ .dest {
+  max-width: 135px;
+  overflow: hidden;
+  padding-left: 5px;
+  padding-right: 10px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+/* Train origin station */
+.trainOrigin {
+  max-width: 135px;
+  overflow: hidden;
+  padding-right: 10px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Platofrm Number */
+.platform {
+  font-weight: bold;
+  padding-right: 10px;
+  text-align: left;
+}
+
+.timeTabled {
+  padding-left: 10px;
+}
+
+.actualTime {
+  padding-left: 10px;
+}
+
+.status {
+  padding-left: 10px;
+  text-align: right;
+}
+
+/* Statuses */
 .late {
   color: #ff0000;
 }
@@ -24,15 +62,13 @@
   color: #ffffff
 }
 
-.departuretime {
+.stationName {
   text-align: left;
-}
-
-.trainto {
-  text-align: left;
-}
-
-.platform {
-  color:Green;
-  padding:5px;
+  font-size: 15px;
+  font-family: "Roboto Condensed";
+  font-weight: 400;
+  line-height: 15px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  color: #999;
 }

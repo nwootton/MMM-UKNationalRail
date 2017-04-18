@@ -1,0 +1,27 @@
+{
+  "name": "mmm-uknationalrail",
+  "version": "0.0.2",
+  "description": "Realtime info for UK rail stations",
+  "main": "MMM-UKNationalRail.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nwootton/MMM-UKNationalRail.git"
+  },
+  "keywords": [
+    "Magic",
+    "Mirror",
+    "Module"
+  ],
+  "author": "NJW",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nwootton/MMM-UKNationalRail/issues"
+  },
+  "homepage": "https://github.com/nwootton/MMM-UKNationalRail#readme",
+  "dependencies": {
+    "request": "^2.81.0"
+  }
+}

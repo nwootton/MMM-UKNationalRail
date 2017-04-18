@@ -12,7 +12,7 @@ Module.register("MMM-UKNationalRail",{
 
 	// Define module defaults
 	defaults: {
-		updateInterval: 5 * 60 * 1000, // Update every 5 minutes.
+		updateInterval: 1 * 60 * 1000, // Update every 5 minutes.
 		animationSpeed: 2000,
 		fade: true,
 		fadePoint: 0.25, // Start on 1/4th of the list.
@@ -39,6 +39,7 @@ Module.register("MMM-UKNationalRail",{
 		maxResults: 5, //Maximum number of results to display
 		showOrigin: false,
 		showPlatform: true,
+		showActualDeparture: true,
 		header:	'Departures'
 	},
 
@@ -64,12 +65,20 @@ Module.register("MMM-UKNationalRail",{
 		// Set locale.
 		moment.locale(config.language);
 
-    this.trains = [];
+    this.trains = {};
 		this.loaded = false;
 		this.scheduleUpdate(this.config.initialLoadDelay);
 
 		this.updateTimer = null;
 
+		this.url = encodeURI(this.config.apiBase + this.config.stationCode + '/live.json' + this.getParams());
+
+		this.updateTrainInfo(this);
+	},
+
+	// updateTrainInfo
+	updateTrainInfo: function(self) {
+		self.sendSocketNotification('GET_TRAININFO', {'url':this.url});
 	},
 
 	// Override dom generator.
@@ -100,78 +109,93 @@ Module.register("MMM-UKNationalRail",{
 			return wrapper;
 		}
 
+		//this.config.header = this.trains.stationName;
+
+		var title = document.createElement("div");
+
+		title.innerHTML = this.trains.stationName;
+		title.className = "small stationName";
+		wrapper.appendChild(title);
+
 		var table = document.createElement("table");
 		table.className = "small";
 
-		for (var t in this.trains) {
-			var trains = this.trains[t];
+		for (var t in this.trains.data) {
+			var myTrain = this.trains.data[t];
 
 			var row = document.createElement("tr");
 			table.appendChild(row);
 
 			if (this.config.showPlatform) {
-
-				if (trains.platform) {
-					platform = trains.platform;
+				if (myTrain.platform) {
+					platform = myTrain.platform;
 				}
 				else {
 					platform = '-';
 				}
 
 				var trainPlatformCell = document.createElement("td");
-				trainPlatformCell.innerHTML = platform;
-				trainPlatformCell.className = "bright platform";
+				trainPlatformCell.innerHTML = " " + platform + " ";
+				trainPlatformCell.className = "platform";
 				row.appendChild(trainPlatformCell);
 			}
 
 			var trainDestCell = document.createElement("td");
-			trainDestCell.innerHTML = trains.destination;
-			trainDestCell.className = "align-left bright";
+			trainDestCell.innerHTML = myTrain.destination;
+			trainDestCell.className = "bright dest";
 			row.appendChild(trainDestCell);
-
-			var depCell = document.createElement("td");
-			depCell.className = "departuretime";
-			depCell.innerHTML = trains.plannedDeparture + " (" + trains.actualDeparture + ")";
-			row.appendChild(depCell);
-
-      var statusCell = document.createElement("td");
-
-      if(trains.status == "LATE") {
-          statusCell.innerHTML = " Late ";
-					statusCell.className = "bright late";
-      }
-			else if(trains.status == "EARLY") {
-          statusCell.innerHTML = " Early ";
-					statusCell.className = "bright early";
-			}
-			else if(trains.status == "CANCELLED") {
-          statusCell.innerHTML = " Cancelled ";
-					statusCell.className = "late";
-			}
-			else if(trains.status == "ARRIVED") {
-          statusCell.innerHTML = " Arrived ";
-					statusCell.className = "early";
-			}
-			else if(trains.status == "REINSTATEMENT" || trains.status == "STARTS HERE") {
-          statusCell.innerHTML = trains.status;
-					statusCell.className = "early";
-			}
-			else if(trains.status == "NO REPORT") {
-          statusCell.innerHTML = "";
-					statusCell.className = "nonews";
-			}
-      else {
-          statusCell.innerHTML = " On time ";
-					statusCell.className = "nonews";
-			}
-			row.appendChild(statusCell);
 
 			if (this.config.showOrigin) {
 				var trainOriginCell = document.createElement("td");
-				trainOriginCell.innerHTML = trains.origin;
-				trainOriginCell.className = "align-right trainto";
+				trainOriginCell.innerHTML = myTrain.origin;
+				trainOriginCell.className = "trainOrigin";
 				row.appendChild(trainOriginCell);
 			}
+
+			var plannedDepCell = document.createElement("td");
+			plannedDepCell.innerHTML = myTrain.plannedDeparture;
+			plannedDepCell.className = "timeTabled";
+			row.appendChild(plannedDepCell);
+
+			if (this.config.showActualDeparture) {
+				var actualDepCell = document.createElement("td");
+				actualDepCell.innerHTML = "(" + myTrain.actualDeparture + ")";
+				actualDepCell.className = "actualTime";
+				row.appendChild(actualDepCell);
+			}
+
+      var statusCell = document.createElement("td");
+
+      if(myTrain.status == "LATE") {
+          statusCell.innerHTML = " Late ";
+					statusCell.className = "bright late status";
+      }
+			else if(myTrain.status == "EARLY") {
+          statusCell.innerHTML = " Early ";
+					statusCell.className = "bright early status";
+			}
+			else if(myTrain.status == "CANCELLED") {
+          statusCell.innerHTML = " Cancelled ";
+					statusCell.className = "late status";
+			}
+			else if(myTrain.status == "ARRIVED") {
+          statusCell.innerHTML = " Arrived ";
+					statusCell.className = "early status";
+			}
+			else if(myTrain.status == "REINSTATEMENT" || myTrain.status == "STARTS HERE") {
+          statusCell.innerHTML = myTrain.status;
+					statusCell.className = "early status";
+			}
+			else if(myTrain.status == "NO REPORT") {
+          statusCell.innerHTML = "";
+					statusCell.className = "nonews status";
+			}
+      else {
+          statusCell.innerHTML = " On time ";
+					statusCell.className = "nonews status";
+			}
+			row.appendChild(statusCell);
+
 
 			if (this.config.fade && this.config.fadePoint < 1) {
 				if (this.config.fadePoint < 0) {
@@ -186,43 +210,54 @@ Module.register("MMM-UKNationalRail",{
 			}
 
 		}
+		wrapper.appendChild(table);
 
-		return table;
+		return wrapper;
 	},
 
-	/*
-	 * Requests new data from transport API
-	 * Calls processTrains on succesfull response.
+	/* processTrains(data)
+	 * Uses the received data to set the various values.
+	 *
+	 * argument data object - Weather information received form openweather.org.
 	 */
-	updateTimetable: function() {
+	processTrains: function(data) {
+		//define object to hold train info
+		this.trains = {};
 
-		var url = this.config.apiBase + this.config.stationCode + '/live.json' + this.getParams();
-		var self = this;
-		var retry = true;
+		//Define array of departure data
+		this.trains.data = [];
 
-		var trainRequest = new XMLHttpRequest();
-		trainRequest.open("GET", url, true);
-		trainRequest.onreadystatechange = function() {
-			if (this.readyState === 4) {
-				if (this.status === 200) {
-					self.processTrains(JSON.parse(this.response));
-				} else if (this.status === 401) {
-					self.config.id = "";
-					self.updateDom(self.config.animationSpeed);
+		//Populate station Name
+		this.trains.stationName = data.station_name;
 
-					Log.error(self.name + ": Incorrect waht so ever...");
-					retry = false;
-				} else {
-					Log.error(self.name + ": Could not load trains.");
-				}
+		//Figure out how long the results are
+		var counter = 0;
+		if(this.config.maxResults > data.departures.all.length) {
+				counter = data.departures.all.length;
+		}
+		else {
+				counter = this.config.maxResults;
+		}
 
-				if (retry) {
-					self.scheduleUpdate((self.loaded) ? -1 : self.config.retryDelay);
-				}
-			}
-		};
-		trainRequest.send();
+		for (var i = 0; i < counter; i++) {
+
+			var thisTrain = data.departures.all[i];
+
+			this.trains.data.push({
+				plannedDeparture: thisTrain.aimed_departure_time,
+				actualDeparture: thisTrain.expected_departure_time,
+				status: thisTrain.status,
+				origin: thisTrain.origin_name,
+				destination: thisTrain.destination_name,
+				leavesIn: thisTrain.best_arrival_estimate_mins,
+				platform: thisTrain.platform
+			});
+		}
+
+		this.loaded = true;
+		this.updateDom(this.config.animationSpeed);
 	},
+
 
 	/* getParams(compliments)
 	 * Generates an url with api parameters based on the config.
@@ -280,42 +315,6 @@ Module.register("MMM-UKNationalRail",{
 		return params;
 	},
 
-	/* processTrains(data)
-	 * Uses the received data to set the various values.
-	 *
-	 * argument data object - Weather information received form openweather.org.
-	 */
-	processTrains: function(data) {
-
-		this.config.header = data.station_name;
-		this.trains = [];
-		var counter = 0;
-		if(this.config.maxResults > data.departures.all.length) {
-				counter = data.departures.all.length;
-		}
-		else {
-				counter = this.config.maxResults;
-		}
-
-		for (var i = 0; i < counter; i++) {
-
-			var trains = data.departures.all[i];
-			this.trains.push({
-
-				plannedDeparture: trains.aimed_departure_time,
-				actualDeparture: trains.expected_departure_time,
-				status: trains.status,
-				origin: trains.origin_name,
-				destination: trains.destination_name,
-				leavesIn: trains.best_arrival_estimate_mins,
-				platform: trains.platform
-			});
-		}
-
-		this.loaded = true;
-		this.updateDom(this.config.animationSpeed);
-	},
-
 	/* scheduleUpdate()
 	 * Schedule next update.
 	 *
@@ -330,8 +329,18 @@ Module.register("MMM-UKNationalRail",{
 		var self = this;
 		clearTimeout(this.updateTimer);
 		this.updateTimer = setTimeout(function() {
-			self.updateTimetable();
+			self.updateTrainInfo(self);
 		}, nextLoad);
 	},
+
+
+	// Process data returned
+	socketNotificationReceived: function(notification, payload) {
+
+    if (notification === 'TRAIN_DATA' && payload.url === this.url) {
+				this.processTrains(payload.data);
+				this.scheduleUpdate(this.config.updateInterval);
+    }
+  }
 
 });
