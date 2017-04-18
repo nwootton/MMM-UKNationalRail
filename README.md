@@ -7,6 +7,13 @@ This module displays LIVE train arrivals & departures from a specified station.
 ![](./images/Current_version.png)
 ## Using the module
 
+Git clone from this repository into the modules sub-directory of the Magic Mirror installation, change directory into the newly cloned code and then run npm install.
+
+```bash
+git clone https://github.com/nwootton/MMM-UKNationalRail.git
+cd MMM-UKNationalRail
+npm install
+```
 To use this module, add it to the modules array in the `config/config.js` file:
 
 ```javascript
