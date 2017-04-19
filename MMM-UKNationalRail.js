@@ -40,7 +40,6 @@ Module.register("MMM-UKNationalRail",{
 		showOrigin: false,
 		showPlatform: true,
 		showActualDeparture: true,
-		useStationName:	false,
 		header:	'Departures'
 	},
 
@@ -110,15 +109,9 @@ Module.register("MMM-UKNationalRail",{
 			return wrapper;
 		}
 
-		if (!this.config.useStationName) {
-			var title = document.createElement("div");
-			title.innerHTML = this.trains.stationName;
-			title.className = "small stationName";
-			wrapper.appendChild(title);
-		}
-		else {
+		if (this.trains.stationName !== null) {
 			this.config.header = this.trains.stationName;
-		}
+		};
 
 		var table = document.createElement("table");
 		table.className = "small";
