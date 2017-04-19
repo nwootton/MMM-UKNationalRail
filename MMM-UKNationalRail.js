@@ -110,11 +110,8 @@ Module.register("MMM-UKNationalRail",{
 			return wrapper;
 		}
 
-		//this.config.header = this.trains.stationName;
-
-		var title = document.createElement("div");
-
 		if (!this.config.useStationName) {
+			var title = document.createElement("div");
 			title.innerHTML = this.trains.stationName;
 			title.className = "small stationName";
 			wrapper.appendChild(title);
