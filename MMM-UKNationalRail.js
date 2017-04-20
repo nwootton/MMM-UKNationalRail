@@ -121,9 +121,11 @@ Module.register("MMM-UKNationalRail",{
 			for (var t in this.trains.data) {
 				var myTrain = this.trains.data[t];
 
+				//Create row for data item
 				var row = document.createElement("tr");
 				table.appendChild(row);
 
+				//If platform is required, create first table cell
 				if (this.config.showPlatform) {
 					if (myTrain.platform) {
 						platform = myTrain.platform;
@@ -138,11 +140,13 @@ Module.register("MMM-UKNationalRail",{
 					row.appendChild(trainPlatformCell);
 				}
 
+				//Train destination cell
 				var trainDestCell = document.createElement("td");
 				trainDestCell.innerHTML = myTrain.destination;
 				trainDestCell.className = "bright dest";
 				row.appendChild(trainDestCell);
 
+				//If required train origin cell
 				if (this.config.showOrigin) {
 					var trainOriginCell = document.createElement("td");
 					trainOriginCell.innerHTML = myTrain.origin;
@@ -150,11 +154,13 @@ Module.register("MMM-UKNationalRail",{
 					row.appendChild(trainOriginCell);
 				}
 
+				//Timetabled departure time
 				var plannedDepCell = document.createElement("td");
 				plannedDepCell.innerHTML = myTrain.plannedDeparture;
 				plannedDepCell.className = "timeTabled";
 				row.appendChild(plannedDepCell);
 
+				//If required, live departure time
 				if (this.config.showActualDeparture) {
 					var actualDepCell = document.createElement("td");
 					actualDepCell.innerHTML = "(" + myTrain.actualDeparture + ")";
@@ -162,36 +168,36 @@ Module.register("MMM-UKNationalRail",{
 					row.appendChild(actualDepCell);
 				}
 
-		var statusCell = document.createElement("td");
-		statusCell.innerHTML = " " + titleCase(myTrain.status) + " ";
-		
-		if(myTrain.status == "ON TIME") {
-			statusCell.className = "bright nonews status";
-		}
-		else if(myTrain.status == "LATE") {
-			statusCell.className = "bright late status";
-		}
-		else if(myTrain.status == "EARLY") {
-			statusCell.className = "bright early status";
-		}
-		else if(myTrain.status == "CANCELLED") {
-			statusCell.className = "late status";
-		}
-		else if(myTrain.status == "ARRIVED") {
-			statusCell.className = "early status";
-		}
-		else if(myTrain.status == "REINSTATEMENT" || myTrain.status == "STARTS HERE") {
-			statusCell.className = "goodnews status";
-		}
-		else if(myTrain.status == "NO REPORT" || myTrain.status == "OFF ROUTE" ) {
-			statusCell.className = "nonews status";
-		}
-		else {
-			statusCell.className = "nonews status";
-		}
-		
-		row.appendChild(statusCell);
-
+				//Train status cell
+				var statusCell = document.createElement("td");
+				statusCell.innerHTML = " " + titleCase(myTrain.status) + " ";
+				
+				if(myTrain.status == "ON TIME") {
+					statusCell.className = "bright nonews status";
+				}
+				else if(myTrain.status == "LATE") {
+					statusCell.className = "bright late status";
+				}
+				else if(myTrain.status == "EARLY") {
+					statusCell.className = "bright early status";
+				}
+				else if(myTrain.status == "CANCELLED") {
+					statusCell.className = "late status";
+				}
+				else if(myTrain.status == "ARRIVED") {
+					statusCell.className = "early status";
+				}
+				else if(myTrain.status == "REINSTATEMENT" || myTrain.status == "STARTS HERE") {
+					statusCell.className = "goodnews status";
+				}
+				else if(myTrain.status == "NO REPORT" || myTrain.status == "OFF ROUTE" ) {
+					statusCell.className = "nonews status";
+				}
+				else {
+					statusCell.className = "nonews status";
+				}
+				
+				row.appendChild(statusCell);
 
 				if (this.config.fade && this.config.fadePoint < 1) {
 					if (this.config.fadePoint < 0) {
@@ -204,7 +210,6 @@ Module.register("MMM-UKNationalRail",{
 						row.style.opacity = 1 - (1 / steps * currentStep);
 					}
 				}
-
 			}
 		}
 		else {
