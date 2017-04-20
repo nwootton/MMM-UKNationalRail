@@ -39,7 +39,7 @@ The following is taken from the TransportAPI documentation [here](https://develo
 
 |Option|Required Settings Description|
 |---|---|
-|`stationCode`|String. The station you require information about.<br><br>This value is **REQUIRED** <br/>**Example**: SUR <br />|
+|`stationCode`|String. The station you require information about. <br />This defaults to using the CRS format, but you can also specify the tiploc format by preceeding the code with 'tiploc:'<br><br>This value is **REQUIRED** <br/>**Example**: SUR <br /> **Example**: tiploc:GUILDFD <br/>|
 |`api_id`|String. Your TransportAPI app_id [Get yours here](https://developer.transportapi.com/signup).<br><br>This value is **REQUIRED**  <br/>**Example**: 03zf7118 <br />|
 |`app_key`|String. Your TransportAPI app_key [Get yours here](https://developer.transportapi.com/signup).<br><br>This value is **REQUIRED** <br/>**Example**: z9307fd87b0000c107e098d5effedc97 <br />|
 
