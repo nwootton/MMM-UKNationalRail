@@ -12,35 +12,35 @@ Module.register("MMM-UKNationalRail",{
 
 	// Define module defaults
 	defaults: {
-		updateInterval: 1 * 60 * 1000, // Update every 5 minutes.
-		animationSpeed: 2000,
-		fade: true,
-		fadePoint: 0.25, // Start on 1/4th of the list.
-    initialLoadDelay: 0, // start delay seconds.
+		updateInterval: 	5 * 60 * 1000, // Update every 5 minutes.
+		animationSpeed: 	2000,
+		fade: 				true,
+		fadePoint: 			0.25, // Start on 1/4th of the list.
+		initialLoadDelay: 	0, // start delay seconds.
 
-    apiBase: 'https://transportapi.com/v3/uk/train/station/',
+		apiBase: 	'https://transportapi.com/v3/uk/train/station/',
 
-		stationCode: '', // CRS code for station
-		app_key: '', // TransportAPI App Key
-    app_id: '', // TransportAPI App ID
+		stationCode: 	'', // CRS code for station
+		app_key: 		'', // TransportAPI App Key
+		app_id: 		'', // TransportAPI App ID
 
 		called_at: 		'',
 		calling_at:		'',
-		darwin:				'',
+		darwin:			'',
 		destination:	'',
 		from_offset:	'',
-		operator:			'',
-		origin:				'',
-		service:			'',
+		operator:		'',
+		origin:			'',
+		service:		'',
 		to_offset:		'',
 		train_status:	'',
-		type:					'',
+		type:			'',
 
-		maxResults: 5, //Maximum number of results to display
-		showOrigin: false,
-		showPlatform: true,
-		showActualDeparture: true,
-		header:	'Departures'
+		maxResults: 			5, 				//Maximum number of results to display
+		showOrigin: 			false,
+		showPlatform: 			true,
+		showActualDeparture: 	true,
+		header:					'Departures'	//Default header
 	},
 
 	// Define required scripts.
@@ -65,7 +65,8 @@ Module.register("MMM-UKNationalRail",{
 		// Set locale.
 		moment.locale(config.language);
 
-    this.trains = {};
+		//Object to hold train info
+    	this.trains = {};
 		this.loaded = false;
 		this.scheduleUpdate(this.config.initialLoadDelay);
 
@@ -85,6 +86,7 @@ Module.register("MMM-UKNationalRail",{
 	getDom: function() {
 		var wrapper = document.createElement("div");
 
+		// *** Start User config error handling
 		if (this.config.stationCode === "") {
 			wrapper.innerHTML = "Please set the Station Code: " + this.stationCode + ".";
 			wrapper.className = "dimmed light small";
@@ -108,11 +110,14 @@ Module.register("MMM-UKNationalRail",{
 			wrapper.className = "dimmed light small";
 			return wrapper;
 		}
+		// *** End User config error handling
 
+		//Set module header to train station name
 		if (this.trains.stationName !== null) {
 			this.config.header = this.trains.stationName;
 		};
 
+		// *** Start building results table
 		var table = document.createElement("table");
 		table.className = "small";
 
@@ -223,6 +228,7 @@ Module.register("MMM-UKNationalRail",{
 		}
 
 		wrapper.appendChild(table);
+		// *** End building results table
 
 		return wrapper;
 	},
@@ -249,10 +255,10 @@ Module.register("MMM-UKNationalRail",{
 			//Figure out how long the results are
 			var counter = 0;
 			if(this.config.maxResults > data.departures.all.length) {
-					counter = data.departures.all.length;
+				counter = data.departures.all.length;
 			}
 			else {
-					counter = this.config.maxResults;
+				counter = this.config.maxResults;
 			}
 
 			for (var i = 0; i < counter; i++) {
