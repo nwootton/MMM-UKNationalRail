@@ -50,7 +50,7 @@ Module.register("MMM-UKNationalRail",{
 
 	// Define required scripts.
 	getScripts: function() {
-		return ["moment.js"];
+		return ["moment.js", this.file('titleCase.js')];
 	},
 
 	//Define header for module.
@@ -163,34 +163,31 @@ Module.register("MMM-UKNationalRail",{
 				}
 
 		var statusCell = document.createElement("td");
-
-		if(myTrain.status == "LATE") {
-			statusCell.innerHTML = " Late ";
-						statusCell.className = "bright late status";
+		statusCell.innerHTML = " " + titleCase(myTrain.status) + " ";
+		
+		if(myTrain.status == "ON TIME") {
+			statusCell.className = "bright nonews";
+		}
+		else if(myTrain.status == "LATE") {
+			statusCell.className = "bright late";
 		}
 		else if(myTrain.status == "EARLY") {
-			statusCell.innerHTML = " Early ";
-			statusCell.className = "bright early status";
+			statusCell.className = "bright early";
 		}
 		else if(myTrain.status == "CANCELLED") {
-			statusCell.innerHTML = " Cancelled ";
-			statusCell.className = "late status";
+			statusCell.className = "late";
 		}
 		else if(myTrain.status == "ARRIVED") {
-			statusCell.innerHTML = " Arrived ";
-			statusCell.className = "early status";
+			statusCell.className = "early";
 		}
 		else if(myTrain.status == "REINSTATEMENT" || myTrain.status == "STARTS HERE") {
-			statusCell.innerHTML = myTrain.status;
-			statusCell.className = "early status";
+			statusCell.className = "goodnews";
 		}
-		else if(myTrain.status == "NO REPORT" || myTrain.status == "OFF ROUTE") {
-			statusCell.innerHTML = "";
-			statusCell.className = "nonews status";
+		else if(myTrain.status == "NO REPORT" || myTrain.status == "OFF ROUTE" ) {
+			statusCell.className = "nonews";
 		}
 		else {
-			statusCell.innerHTML = " On time ";
-			statusCell.className = "nonews status";
+			statusCell.className = "nonews";
 		}
 		
 		row.appendChild(statusCell);
