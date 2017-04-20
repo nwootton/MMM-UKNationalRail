@@ -79,3 +79,4 @@ If there are issue getting data out of the module I'm ALWAYS going to ask the fo
 3. Do you know the CRS code for the station?
 4. If you use the live api documentation [here](https://developer.transportapi.com/docs?raml=https://transportapi.com/v3/raml/transportapi.raml##uk_train_station_station_code_live_json) and put in the info you want to use does it respond without an error?
 5. Is the info in your config the same as that you’ve used successfully in the live api docs?
+6. Include the Station CRS code in the report - each operator supplies information slightly differently. While TransportAPI does catch most of these, I might not have.
