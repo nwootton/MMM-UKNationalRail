@@ -12,7 +12,7 @@ Module.register("MMM-UKNationalRail",{
 
 	// Define module defaults
 	defaults: {
-		updateInterval: 1 * 60 * 1000, // Update every 5 minutes.
+		updateInterval: 5 * 60 * 1000, // Update every 5 minutes.
 		animationSpeed: 2000,
 		fade: true,
 		fadePoint: 0.25, // Start on 1/4th of the list.
