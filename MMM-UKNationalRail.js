@@ -166,28 +166,28 @@ Module.register("MMM-UKNationalRail",{
 		statusCell.innerHTML = " " + titleCase(myTrain.status) + " ";
 		
 		if(myTrain.status == "ON TIME") {
-			statusCell.className = "bright nonews";
+			statusCell.className = "bright nonews status";
 		}
 		else if(myTrain.status == "LATE") {
-			statusCell.className = "bright late";
+			statusCell.className = "bright late status";
 		}
 		else if(myTrain.status == "EARLY") {
-			statusCell.className = "bright early";
+			statusCell.className = "bright early status";
 		}
 		else if(myTrain.status == "CANCELLED") {
-			statusCell.className = "late";
+			statusCell.className = "late status";
 		}
 		else if(myTrain.status == "ARRIVED") {
-			statusCell.className = "early";
+			statusCell.className = "early status";
 		}
 		else if(myTrain.status == "REINSTATEMENT" || myTrain.status == "STARTS HERE") {
-			statusCell.className = "goodnews";
+			statusCell.className = "goodnews status";
 		}
 		else if(myTrain.status == "NO REPORT" || myTrain.status == "OFF ROUTE" ) {
-			statusCell.className = "nonews";
+			statusCell.className = "nonews status";
 		}
 		else {
-			statusCell.className = "nonews";
+			statusCell.className = "nonews status";
 		}
 		
 		row.appendChild(statusCell);
