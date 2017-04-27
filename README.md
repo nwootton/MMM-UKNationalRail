@@ -19,14 +19,15 @@ To use this module, add it to the modules array in the `config/config.js` file:
 ```javascript
 modules: [
     {
-		module: 'MMM-UKNationalRail',
-		position: 'bottom_left',
+		module: 		'MMM-UKNationalRail',
+		position: 		'bottom_left',
+		header:			'Departures',		//Optional - delete this line to turn OFF the header completely
 		config: {
 			stationCode: 		'SUR', 		// CRS code for station
-			app_id: 			'', 	// TransportAPI App ID
-			app_key: 			'', // TransportAPI App Key
-			maxResults: 		5,  //Optional - Maximum results to display.
-			showOrigin: 		false   //Optional - Show the origin of the train in the table
+			app_id: 			'', 		// TransportAPI App ID
+			app_key: 			'', 		// TransportAPI App Key
+			maxResults: 		5,  		//Optional - Maximum results to display.
+			showOrigin: 		false   	//Optional - Show the origin of the train in the table
 		}
 	},
 ]
