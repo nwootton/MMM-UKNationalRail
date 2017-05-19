@@ -121,7 +121,7 @@ Module.register("MMM-UKNationalRail", {
 
         if (this.trains.stationName !== null) {
             this.config.header = this.trains.stationName;
-        };
+        }
 
         //With data returned
         if (this.trains.data.length > 0) {
