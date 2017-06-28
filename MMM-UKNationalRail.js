@@ -394,6 +394,11 @@ Module.register("MMM-UKNationalRail", {
         if (this.config.type.length > 0) {
             params += "&type=" + this.config.type;
         }
+
+        if (this.config.debug) {
+            Log.warn(params);
+        }
+
         return params;
     },
 
