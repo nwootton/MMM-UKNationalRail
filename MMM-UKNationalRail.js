@@ -240,23 +240,24 @@ Module.register("MMM-UKNationalRail", {
      * argument data object - Weather information received form openweather.org.
      */
     processTrains: function(data) {
-        //define object to hold train info
-        this.trains = {};
-        //Define array of departure data
-        this.trains.data = [];
-        //Define timestamp of current data
-        this.trains.timestamp = new Date();
-        //Define message holder
-        this.trains.message = null;
 
         //Check we have data back from API
-        if (typeof data !== 'undefined' || data !== null) {
+        if (typeof data !== 'undefined' && data !== null) {
+
+            //define object to hold train info
+            this.trains = {};
+            //Define array of departure data
+            this.trains.data = [];
+            //Define timestamp of current data
+            this.trains.timestamp = new Date();
+            //Define message holder
+            this.trains.message = null;
 
             //Figure out Station Name
             //Define empty name
             var stationName = "";
 
-            if (typeof data.station_name !== 'undefined' || data.station_name !== null) {
+            if (typeof data.station_name !== 'undefined' && data.station_name !== null) {
                 //Populate with stop name returned by TransportAPI info
                 stationName = data.station_name;
             } else {
@@ -267,32 +268,44 @@ Module.register("MMM-UKNationalRail", {
             this.trains.stationName = stationName;
 
             //Check we have route info
-            if (typeof data.departures !== 'undefined' || data.departures !== null) {
+            if (typeof data.departures !== 'undefined' && data.departures !== null) {
 
-                //.. and actual departures
-                if (data.departures.all.length > 0) {
+                //... and some departures
+				if (typeof data.departures.all !== 'undefined' && data.departures.all !== null) {
 
-                    //Figure out how long the results are
-                    var counter = 0;
-                    if (this.config.maxResults > data.departures.all.length) {
-                        counter = data.departures.all.length;
+                    //.. and actual departures
+                    if (data.departures.all.length > 0) {
+
+                        //Figure out how long the results are
+                        var counter = 0;
+                        if (this.config.maxResults > data.departures.all.length) {
+                            counter = data.departures.all.length;
+                        } else {
+                            counter = this.config.maxResults;
+                        }
+
+                        for (var i = 0; i < counter; i++) {
+
+                            var thisTrain = data.departures.all[i];
+
+                            this.trains.data.push({
+                                plannedDeparture: thisTrain.aimed_departure_time,
+                                actualDeparture: thisTrain.expected_departure_time,
+                                status: thisTrain.status,
+                                origin: thisTrain.origin_name,
+                                destination: thisTrain.destination_name,
+                                leavesIn: thisTrain.best_arrival_estimate_mins,
+                                platform: thisTrain.platform
+                            });
+                        }
                     } else {
-                        counter = this.config.maxResults;
-                    }
-
-                    for (var i = 0; i < counter; i++) {
-
-                        var thisTrain = data.departures.all[i];
-
-                        this.trains.data.push({
-                            plannedDeparture: thisTrain.aimed_departure_time,
-                            actualDeparture: thisTrain.expected_departure_time,
-                            status: thisTrain.status,
-                            origin: thisTrain.origin_name,
-                            destination: thisTrain.destination_name,
-                            leavesIn: thisTrain.best_arrival_estimate_mins,
-                            platform: thisTrain.platform
-                        });
+                        //No departures info returned - set message
+                        this.trains.message = "No departure info found";
+                        if (this.config.debug) {
+                            Log.error("=======LEVEL 4=========");
+                            Log.error(this.trains);
+                            Log.error("^^^^^^^^^^^^^^^^^^^^^^^");
+                        }
                     }
                 } else {
                     //No departures info returned - set message
