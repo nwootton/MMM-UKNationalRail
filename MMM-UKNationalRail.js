@@ -171,7 +171,7 @@ Module.register("MMM-UKNationalRail",{
 				//Train status cell
 				var statusCell = document.createElement("td");
 				statusCell.innerHTML = " " + titleCase(myTrain.status) + " ";
-				
+
 				if(myTrain.status == "ON TIME") {
 					statusCell.className = "bright nonews status";
 				}
@@ -196,7 +196,7 @@ Module.register("MMM-UKNationalRail",{
 				else {
 					statusCell.className = "nonews status";
 				}
-				
+
 				row.appendChild(statusCell);
 
 				if (this.config.fade && this.config.fadePoint < 1) {
@@ -213,13 +213,13 @@ Module.register("MMM-UKNationalRail",{
 			}
 		}
 		else {
-			var row = document.createElement("tr");
+			var thisrow = document.createElement("tr");
 			table.appendChild(row);
 
 			var messageCell = document.createElement("td");
 			messageCell.innerHTML = " " + this.trains.messages + " ";
 			messageCell.className = "bright";
-			row.appendChild(messageCell);			
+			thisrow.appendChild(messageCell);
 		}
 
 		wrapper.appendChild(table);
