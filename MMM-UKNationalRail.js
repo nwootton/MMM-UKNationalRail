@@ -74,6 +74,10 @@ Module.register("MMM-UKNationalRail", {
 
         this.url = encodeURI(this.config.apiBase + this.config.stationCode + '/live.json' + this.getParams());
 
+        if (this.config.debug) {
+            Log.warn('URL Request is: ' + this.url);
+        }
+
         this.updateTrainInfo(this);
     },
 
