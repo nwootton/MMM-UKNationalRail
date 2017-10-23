@@ -26,7 +26,7 @@ Module.register("MMM-UKNationalRail", {
 
         called_at: '',
         calling_at: '',
-        darwin: '',
+        darwin: false,
         destination: '',
         from_offset: '',
         operator: '',
