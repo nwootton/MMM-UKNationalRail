@@ -83,7 +83,9 @@ Module.register("MMM-UKNationalRail", {
 
     // updateTrainInfo
     updateTrainInfo: function(self) {
-        self.sendSocketNotification('GET_TRAININFO', { 'url': this.url });
+        if (this.hidden != true) {
+            self.sendSocketNotification('GET_TRAININFO', { 'url': this.url });
+        }
     },
 
     // Override dom generator.
