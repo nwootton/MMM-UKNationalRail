@@ -46,13 +46,13 @@ The following is taken from the TransportAPI documentation [here](https://develo
 
 |Option|Optional Settings Description|
 |---|---|
-|`called_at`|String. Only include services that call at the given station, before calling at the station of interest.<br>*It appears that you can't mix `called_at` with `calling_at` it returns an empty response.* <br/><br>**Example:** 'VXH'|
-|`calling_at`|String. Only include services that call at the given station, after calling at the station of interest.<br>*It appears that you can't mix `called_at` with `calling_at` it returns an empty response.* <br/><br>**Example:** 'CLJ'|
+|`called_at`|String. Only include services that call at the given station, before calling at the station of interest.<br>*It appears that you can't mix `called_at` with `calling_at` as it returns an empty response.* <br/><br>**Example:** 'THD'|
+|`calling_at`|String. Only include services that call at the given station, after calling at the station of interest.<br>*It appears that you can't mix `calling_at` with `called_at` as it returns an empty response.* <br/><br>**Example:** 'EAD'|
 |`darwin`|Boolean. Additionally use data from the National Rail Enquiries Darwin Data Feeds when determining the value of the status fields for all the departures, arrivals or passes.<br><br>**Default:** false|
-|`destination`|String. Only include services terminating at the given station.<br><br>**Example:** 'SUR'|
+|`destination`|String. Only include services terminating at the given station.<br><br>**Example:** 'WAT'|
 |`from_offset`|String. Modifies the start of the time window for which services are retrieved. By default, this is one hour in the past relative to the date/time of interest..<br><br>**Default:** '-PT01:00:00'|
 |`operator`|String. Only include services that are operated by the given operator, specified using its ATOC code<br><br>**Example:** 'SW'|
-|`origin`|String. Only include services originating from the given station.<br><br>**Example:** 'WAT'|
+|`origin`|String. Only include services originating from the given station.<br><br>**Example:** 'HMC'|
 |`service`|String. Only include services that have the given service code.<br><br>**Example:** '24673205'|
 |`to_offset`|String. Modifies the end of the time window for which services are retrieved. By default, this is two hours in the future relative to the date/time of interest.<br><br>**Default:** 'PT02:00:00'|
 |`train_status`|String. Only include services having the specified train status. Can be used to show either 'passenger' or 'freight' services.<br><br>**Default:** 'passenger'|
