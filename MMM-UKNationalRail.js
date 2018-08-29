@@ -273,6 +273,39 @@ Module.register("MMM-UKNationalRail", {
             //Set value
             this.trains.stationName = stationName;
 
+            //See if the data is Arrivals or Updates instead of departures
+            if (typeof data.arrivals !== 'undefined' && data.arrivals !== null) {
+
+                if (this.config.debug) {
+                    Log.error("Arrival detected");
+                }
+                //Change label to departures
+                var deps = data.arrivals;
+                data.departures = deps;
+                delete data.arrivals;
+            }
+            else if (typeof data.updates !== 'undefined' && data.updates !== null) {
+
+                if (this.config.debug) {
+                    Log.error("Update detected");
+                }
+                //Change label to departures
+                var deps = data.updates;
+                data.departures = deps;
+                delete data.updates;
+            }
+            else if (typeof data.passes !== 'undefined' && data.passes !== null) {
+
+                if (this.config.debug) {
+                    Log.error("Pass detected");
+                }
+                //Change label to departures
+                var deps = data.passes;
+
+                data.departures = deps;
+                delete data.passes;
+            }
+
             //Check we have route info
             if (typeof data.departures !== 'undefined' && data.departures !== null) {
 
