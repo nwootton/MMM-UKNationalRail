@@ -46,8 +46,8 @@ The following is taken from the TransportAPI documentation [here](https://develo
 
 |Option|Optional Settings Description|
 |---|---|
-|`called_at`|String. Only include services that call at the given station, before calling at the station of interest.<br><br>**Example:** 'VXH'|
-|`calling_at`|String. Only include services that call at the given station, after calling at the station of interest.<br><br>**Example:** 'CLJ'|
+|`called_at`|String. Only include services that call at the given station, before calling at the station of interest.<br>*It appears that you can't mix `called_at` with `calling_at` it returns an empty response.* <br/><br>**Example:** 'VXH'|
+|`calling_at`|String. Only include services that call at the given station, after calling at the station of interest.<br>*It appears that you can't mix `called_at` with `calling_at` it returns an empty response.* <br/><br>**Example:** 'CLJ'|
 |`darwin`|Boolean. Additionally use data from the National Rail Enquiries Darwin Data Feeds when determining the value of the status fields for all the departures, arrivals or passes.<br><br>**Default:** false|
 |`destination`|String. Only include services terminating at the given station.<br><br>**Example:** 'SUR'|
 |`from_offset`|String. Modifies the start of the time window for which services are retrieved. By default, this is one hour in the past relative to the date/time of interest..<br><br>**Default:** '-PT01:00:00'|
