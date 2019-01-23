@@ -1,7 +1,7 @@
 # MMM-UKNationalRail
 Additional Module for MagicMirror²  https://github.com/MichMich/MagicMirror
 
-Please note - I no longer run a MagicMirror, so these modules are unused and are no-longer supported. Feel free to fork and update as necessary
+**Please note** - I no longer run a MagicMirror, so these modules are no-longer supported. Feel free to fork and update as necessary.
 
 # Module: UKNationalRail
 This module displays LIVE train departures from the specified station(s).
