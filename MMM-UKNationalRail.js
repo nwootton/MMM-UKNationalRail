@@ -175,7 +175,11 @@ Module.register("MMM-UKNationalRail", {
                 //If required, live departure time
                 if (this.config.showActualDeparture) {
                     var actualDepCell = document.createElement("td");
-                    actualDepCell.innerHTML = "(" + myTrain.actualDeparture + ")";
+                    if(myTrain.actualDeparture != null) { // Only display actual time if it exists
+                        actualDepCell.innerHTML = "(" + myTrain.actualDeparture + ")";
+                    } else {
+                        actualDepCell.innerHTML = "&nbsp;";
+                    }
                     actualDepCell.className = "actualTime";
                     row.appendChild(actualDepCell);
                 }
