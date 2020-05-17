@@ -68,9 +68,6 @@ Module.register("MMM-UKNationalRail", {
 
         this.trains = {};
         this.loaded = false;
-        this.scheduleUpdate(this.config.initialLoadDelay);
-
-        this.updateTimer = null;
 
         this.url = encodeURI(this.config.apiBase + this.config.stationCode + '/live.json' + this.getParams());
 
@@ -78,13 +75,22 @@ Module.register("MMM-UKNationalRail", {
             Log.warn('URL Request is: ' + this.url);
         }
 
-        this.updateTrainInfo(this);
+        // Initial start up delay via a timeout
+        this.updateTimer = setTimeout(() => {
+            this.fetchTrainInfo();
+
+            // Now we've had our initial delay, re-fetch our train information at the interval given in the config
+            this.updateTimer = setInterval(() => {
+                this.fetchTrainInfo();
+            }, this.config.updateInterval);
+
+        }, this.config.initialLoadDelay);
     },
 
-    // updateTrainInfo
-    updateTrainInfo: function(self) {
-        if (this.hidden != true) {
-            self.sendSocketNotification('GET_TRAININFO', { 'url': this.url });
+    // Trigger an update of our train data
+    fetchTrainInfo: function() {
+        if (!this.hidden) {
+            this.sendSocketNotification("GET_TRAININFO", { 'url': this.url } );
         }
     },
 
@@ -445,31 +451,11 @@ Module.register("MMM-UKNationalRail", {
         return params;
     },
 
-    /* scheduleUpdate()
-     * Schedule next update.
-     *
-     * argument delay number - Milliseconds before next update. If empty, this.config.updateInterval is used.
-     */
-    scheduleUpdate: function(delay) {
-        var nextLoad = this.config.updateInterval;
-        if (typeof delay !== "undefined" && delay >= 0) {
-            nextLoad = delay;
-        }
-
-        var self = this;
-        clearTimeout(this.updateTimer);
-        this.updateTimer = setTimeout(function() {
-            self.updateTrainInfo(self);
-        }, nextLoad);
-    },
-
-
     // Process data returned
     socketNotificationReceived: function(notification, payload) {
 
         if (notification === 'TRAIN_DATA' && payload.url === this.url) {
             this.processTrains(payload.data);
-            this.scheduleUpdate(this.config.updateInterval);
         }
     }
 
