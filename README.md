@@ -36,7 +36,7 @@ modules: [
 ```
 There are 3 MANDATORY fields - `stationCode`, `app_id` and `app_key`. All the others are used to limit the amount of info you get back, especially useful for busy stations like Clapham Junction.
 
-Add a config for each ststaion you require info on
+Add a config for each station you require info on
 
 **PLEASE NOTE** The TransportAPI provides a sample key in their documentation that I previously referenced here. This is being removed very soon, so you *MUST* register to get this module to work!
 
