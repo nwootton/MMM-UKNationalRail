@@ -67,7 +67,7 @@ The following is taken from the TransportAPI documentation [here](https://develo
 |`showPlatform `|Boolean. This shows the platform number of the train in the results grid. If no platform is specified it will show '-'<br><br>**Default:** true|
 
 
-To find the CRS Station codes for the 'stations of interest' go here: http://www.railwaycodes.org.uk/crs/CRS0.shtm
+To find the CRS Station codes for the 'stations of interest' go here: http://www.railwaycodes.org.uk/crs/CRS0.shtm or use OpenStreetMap. Information on using OpenStreetMap is found inthe CRS.md file in this repo
 
 ## Transport API
 
