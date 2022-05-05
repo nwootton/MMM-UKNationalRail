@@ -36,6 +36,8 @@ modules: [
 ```
 There are 3 MANDATORY fields - `stationCode`, `app_id` and `app_key`. All the others are used to limit the amount of info you get back, especially useful for busy stations like Clapham Junction.
 
+Add a config for each station you require info on
+
 **PLEASE NOTE** The TransportAPI provides a sample key in their documentation that I previously referenced here. This is being removed very soon, so you *MUST* register to get this module to work!
 
 The following is taken from the TransportAPI documentation [here](https://developer.transportapi.com/docs?raml=https://transportapi.com/v3/raml/transportapi.raml##uk_train_station_station_code_live_json)
@@ -67,7 +69,7 @@ The following is taken from the TransportAPI documentation [here](https://develo
 |`showPlatform `|Boolean. This shows the platform number of the train in the results grid. If no platform is specified it will show '-'<br><br>**Default:** true|
 
 
-To find the CRS Station codes for the 'stations of interest' go here: http://www.railwaycodes.org.uk/crs/CRS0.shtm
+To find the CRS Station codes for the 'stations of interest' go here: http://www.railwaycodes.org.uk/crs/CRS0.shtm or use OpenStreetMap. Information on using OpenStreetMap is found inthe CRS.md file in this repo
 
 ## Transport API
 
