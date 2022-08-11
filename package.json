@@ -1,5 +1,5 @@
 {
-  "name": "mmm-uknationalrail",
+  "name": "MMM-UKNationalRail",
   "version": "0.0.2",
   "description": "Realtime info for UK rail stations",
   "main": "MMM-UKNationalRail.js",
@@ -8,20 +8,35 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nwootton/MMM-UKNationalRail.git"
+    "url": "git+https://github.com/mattdy/MMM-UKNationalRail.git"
   },
   "keywords": [
     "Magic",
     "Mirror",
     "Module"
   ],
-  "author": "NJW",
+  "author": "Matt Dyson <matt@thedysons.net> (http://mattdyson.org)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nwootton/MMM-UKNationalRail/issues"
+    "url": "https://github.com/mattdy/MMM-UKNationalRail/issues"
   },
-  "homepage": "https://github.com/nwootton/MMM-UKNationalRail#readme",
+  "homepage": "https://github.com/mattdy/MMM-UKNationalRail#readme",
+  "scripts": {
+    "prettier": "prettier --write **/*.{js,css,json,md,yml}",
+    "test:prettier": "prettier --check **/*.{js,css,json,md,yml}",
+    "test:js": "eslint **/*.js --config .eslintrc.json",
+    "test:css": "stylelint **/*.css --config .stylelintrc.json"
+  },
+  "prettier": {
+    "trailingComma": "none"
+  },
   "dependencies": {
     "request": "^2.81.0"
-  }
+  },
+  "devDependencies": {
+   "eslint": "^7.9.0",
+   "prettier": "^2.1.2",
+   "stylelint": "^13.7.2",
+   "stylelint-config-standard": "^20.0.0"
+  },
 }
